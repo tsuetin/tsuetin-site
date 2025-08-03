@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>坐陣</title>
+<style>
+  /* 基本色調與字型 */
+  body {
+    margin: 0; font-family: 'Noto Sans TC', sans-serif;
+    background: #f9f7f1; color: #4a4a4a;
+  }
+  /* 迎賓動畫全屏 */
+  #welcome {
+    position: fixed; top:0; left:0; width:100vw; height:100vh;
+    background: #fff;
+    display:flex; justify-content:center; align-items:center;
+    flex-direction: column;
+    z-index: 10;
+  }
+  #welcome video {
+    max-width: 80vw; max-height: 50vh;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  #welcome-text {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #6a6a59;
+  }
+  /* 進入主頁後的版面 */
+  #main {
+    display: none;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  header h1 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 3rem;
+    color: #5a5a4a;
+    margin-bottom: 0;
+  }
+  header small {
+    font-size: 1rem;
+    color: #a0a080;
+  }
+  .container {
+    display: flex;
+    gap: 20px;
+  }
+  nav {
+    width: 250px;
+    border-right: 2px dotted #c1c1a5;
+    padding-right: 15px;
+    font-size: 0.9rem;
+    color: #6a6a59;
+  }
+  nav h2 {
+    font-size: 1.2rem;
+    border-bottom: 1px solid #d9d9b7;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  nav ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  nav ul li {
+    margin-bottom: 8px;
+    cursor: pointer;
+    color: #7a7a69;
+    transition: color 0.3s;
+  }
+  nav ul li:hover {
+    color: #4a4a3a;
+  }
+  main.content {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.05);
+  }
+  main.content h2 {
+    margin-top: 0;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2rem;
+    color: #4a4a3a;
+  }
+  /* 分類切換按鈕 */
+  #categoryToggle {
+    margin-bottom: 15px;
+  }
+  #categoryToggle button {
+    background: #e3e0d9;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin-right: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  #categoryToggle button.active,
+  #categoryToggle button:hover {
+    background: #a0a080;
+    color: white;
+  }
+  /* 留言區 */
+  #commentSection {
+    margin-top: 30px;
+  }
+  #commentSection h3 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+  #commentForm textarea {
+    width: 100%;
+    height: 80px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  #commentForm input[type="text"] {
+    width: 120px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 1rem;
+  }
+  #commentForm button {
+    margin-top: 10px;
+    background: #a0a080;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #commentsList {
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  #commentsList .comment {
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 6px;
+  }
+  #commentsList .comment .author {
+    font-weight: 700;
+    color: #4a4a3a;
+  }
+  /* 手繪星星元素 (簡單示意) */
+  .star-line {
+    stroke: #a0a080;
+    stroke-width: 1.5;
+    fill: none;
+  }
+  .star-circle {
+    fill: #a0a080;
+  }
+</style>
+</head>
+<body>
+
+<!-- 迎賓動畫模擬 -->
+<div id="welcome">
+  <!-- 可以換成影片路徑 -->
+  <video autoplay muted playsinline>
+    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm" />
+    您的瀏覽器不支援影片播放
+  </video>
+  <div id="welcome-text">歡迎來到「坐陣」</div>
+</div>
+
+<div id="main">
+  <header>
+    <h1>坐陣</h1>
+    <small>Dasein：a place to be</small>
+  </header>
+  <div class="container">
+    <nav>
+      <h2>關於坐陣</h2>
+      <ul>
+        <li>網站由來與理念</li>
+        <li>關於我</li>
+      </ul>
+      <h2>分享內容</h2>
+      <ul>
+        <li data-category="manual">手動分類1</li>
+        <li data-category="manual">手動分類2</li>
+        <li data-category="auto">AI自動分類A</li>
+        <li data-category="auto">AI自動分類B</li>
+      </ul>
+    </nav>
+    <main class="content">
+      <div id="categoryToggle">
+        <button id="btnManual" class="active">手動分類</button>
+        <button id="btnAuto">AI分類</button>
+      </div>
+      <section id="contentArea">
+        <h2>歡迎探索坐陣的世界</h2>
+        <p>這裡將展示你手動與AI分類的內容，讓大家自由探索。</p>
+        <!-- 這裡未來會用演化樹或樹狀圖展示 -->
+      </section>
+
+      <section id="commentSection">
+        <h3>留言板</h3>
+        <form id="commentForm">
+          <textarea id="commentText" placeholder="想說什麼呢？"></textarea><br/>
+          <input type="text" id="commentCaptcha" placeholder="請輸入 5 + 3 = ?" />
+          <button type="submit">送出留言</button>
+        </form>
+        <div id="commentsList"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+  // 迎賓畫面3秒後自動消失
+  setTimeout(() => {
+    document.getElementById('welcome').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  }, 3000);
+
+  // 分類切換
+  const btnManual = document.getElementById('btnManual');
+  const btnAuto = document.getElementById('btnAuto');
+  const contentArea = document.getElementById('contentArea');
+  btnManual.onclick = () => {
+    btnManual.classList.add('active');
+    btnAuto.classList.remove('active');
+    contentArea.innerHTML = `
+      <h2>手動分類內容</h2>
+      <p>這裡會顯示你整理好的手動分類內容與故事。</p>
+      <ul>
+        <li>筆記集錦</li>
+        <li>生活觀察</li>
+        <li>AI小實驗</li>
+      </ul>
+    `;
+  };
+  btnAuto.onclick = () => {
+    btnAuto.classList.add('active');
+    btnManual.classList.remove('active');
+    contentArea.innerHTML = `
+      <h2>AI自動分類結果</h2>
+      <p>利用AI演算法幫你自動整理並推薦相關內容。</p>
+      <ul>
+        <li>星座與生活連結</li>
+        <li>植物擬真觀察</li>
+        <li>資料演化樹模擬</li>
+      </ul>
+    `;
+  };
+
+  // 初始設定為手動分類
+  btnManual.onclick();
+
+  // 留言功能簡易防機器
+  const form = document.getElementById('commentForm');
+  const commentList = document.getElementById('commentsList');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const text = document.getElementById('commentText').value.trim();
+    const captcha = document.getElementById('commentCaptcha').value.trim();
+    if(!text) {
+      alert('請輸入留言內容');
+      return;
+    }
+    if(captcha !== '8') {
+      alert('驗證錯誤，請輸入正確答案');
+      return;
+    }
+    // 新增留言
+    const commentDiv = document.createElement('div');
+    commentDiv.className = 'comment';
+    commentDiv.innerHTML = `<div class="author">訪客</div><div class="text">${text}</div>`;
+    commentList.prepend(commentDiv);
+    // 清空表單
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
